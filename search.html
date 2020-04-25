@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let dataSet = [];
+        let dataSize = Math.floor(Math.random() * 15) + 1;
+
+
+        generateDataSet();
+
+        let searchFor = dataSet[Math.floor(Math.random() * dataSet.length)];
+
+        dataSet = selectionSort(dataSet);
+
+        displayArray(dataSet);
+
+        linearSearch(dataSet);
+
+        // binarySearch(dataSet);
+
+        document.write("searching for " + searchFor);
+
+        function generateDataSet() {
+
+            for(let i = 0; i < dataSize; i++) {
+
+                dataSet[i] = Math.floor(Math.random() * (100 - 50 + 1) + 50);
+
+            }
+
+        }
+
+        // linearSearch();
+
+        function displayArray(myArray) {
+
+            let htmlCode = "<ul>";
+
+            for(let i = 0; i < myArray.length; i++) {
+
+                htmlCode += '<li id="element_' + myArray[i] + '" style="background:blue; text-align: center; color: white; margin-top: 5px; width: '+myArray[i]+'px">' + myArray[i] + '</li>';
+
+            }
+
+            htmlCode += "</ul>";
+
+            document.write(htmlCode);
+
+        }
+
+        function linearSearch(dataSet) {
+
+            let i = 0;
+
+            var breakInterval = setInterval(animateThis, 1000);
+
+            function animateThis() { 
+
+                if (i == dataSet.length) {  
+
+                    clearInterval(breakInterval); 
+
+                } 
+                else { 
+
+                    if(searchFor == dataSet[i]) {
+
+                        document.getElementById('element_' + dataSet[i]).style.background = "green";
+                        document.getElementById('element_' + dataSet[i]).style.fontWeight = "bolder";
+                        clearInterval(breakInterval);
+
+                    } else {
+
+                        document.getElementById('element_' + dataSet[i]).style.background = "red";
+
+                    }
+
+                    i++; 
+                            
+                } 
+            } 
+
+        }
+
+        function binarySearch(dataSet) {
+            var elToFind = searchFor;
+            var lowIndex = 0;
+            var highIndex = dataSet.length - 1;
+            // var breakInterval = setInterval(animateThis, 1000);
+
+            while (lowIndex <= highIndex) {
+                
+                
+                var midIndex = Math.floor((lowIndex + highIndex) / 2);
+
+                var breakInterval;
+
+                
+                if (dataSet[midIndex] == elToFind) {
+
+                    animateThis('element_' + dataSet[midIndex], 'green');
+
+                    clearInterval(breakInterval);
+
+                    // document.getElementById('element_' + dataSet[midIndex]).style.background = "green";
+                    return midIndex;
+
+                } else if (dataSet[midIndex] < elToFind) {
+
+                    lowIndex = midIndex + 1;
+
+                    breakInterval = animateThis('element_' + dataSet[lowIndex], 'red');
+                        
+                } else {
+
+                    highIndex = midIndex - 1;
+
+                    breakInterval = animateThis('element_' + dataSet[highIndex], 'red');
+
+                }
+
+                function animateThis(element, color) {
+                    if(element != null && color != null) {
+                        document.getElementById(element).style.background = color;
+                    }
+                }
+            } 
+            return null;
+
+        }
+
+        function selectionSort(dataSet) {
+
+            let len = dataSet.length;
+            for (let i = 0; i < len; i++) {
+                let min = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (dataSet[min] > dataSet[j]) {
+                        min = j;
+                    }
+                }
+                if (min !== i) {
+                    let tmp = dataSet[i];
+                    dataSet[i] = dataSet[min];
+                    dataSet[min] = tmp;
+                }
+            }
+            return dataSet;
+
+        }
+
+        function bubbleSort(myArray) {
+            let len = myArray.length;
+            for (let i = 0; i < len; i++) {
+                for (let j = 0; j < len; j++) {
+                    if (myArray[j] > myArray[j + 1]) {
+                        let tmp = myArray[j];
+                        myArray[j] = myArray[j + 1];
+                        myArray[j + 1] = tmp;
+                    }
+                }
+            }
+            return myArray;
+        };
+
+    </script>
+</body>
+</html>

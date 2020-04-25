@@ -1,0 +1,183 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Capstone Project - Avinash Seth</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/album/album.css" rel="stylesheet">
+
+    <style>
+
+        #searchFor{
+            display: none;
+        }
+
+        #sorted {
+            display: none;
+        }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="#" class="navbar-brand d-flex align-items-center">
+            <strong>Capstone Project</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Bubble Sort</h1>
+          <p>
+            <a href="/linear.html" class="btn btn-primary my-2">Linear Search</a>
+            <a href="/binary.html" class="btn btn-primary my-2">Binary Search</a>
+            <a href="/selection.html" class="btn btn-primary my-2">Selection Sort</a>
+            <a href="/bubble.html" class="btn btn-primary my-2 active">Bubble Sort</a>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row" id="showNumber">
+
+                
+
+            </div>
+
+            <div class="row text-center" id="sorted">
+
+                <h4 class="text-center">Sorted Dataset</h4>
+
+                <p id="sortedPlaceholder"></p>
+
+                <hr />
+
+            </div>
+
+
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h2 class="text-center">Step 1</h2>
+                <form action="">
+                    <div class="form-group">
+                        <label for="">Dataset Size</label>
+                        <input type="number" id="dataSetSize" min="1" max="15" placeholder="Select dataset size" class="form-control"/>
+                    </div>
+                </form>
+                <h2 class="text-center">Step 2</h2>
+                <form action="">
+                    <div class="form-group text-center">
+                        <button type="button" id="generateDataSet" class="btn btn-primary btn-block">Generate Random Dataset</button>
+                    </div>
+                </form>
+                <h2 class="text-center">Step 3</h2>
+                <div class="form-group text-center">
+                    <button id="sortBtn" class="btn btn-primary btn-block" type="button">Sort</button>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+            
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        let dataSetSize = $('#dataSetSize');
+        let dataSet = [];
+
+        $('#generateDataSet').on('click', function() {
+
+            if($('#dataSetSize').val() >= 1 && $('#dataSetSize').val() <= 15) {
+
+                createDataSet();
+
+                arrangeNumbers(dataSet, '#showNumber');
+
+                $('#sortBtn').on('click', function() {
+
+                    bubbleSort(dataSet);
+
+                    $('#sorted').show();
+
+                    arrangeNumbers(dataSet, '#sortedPlaceholder');
+
+                });
+
+            } else {
+
+                alert('Dataset size must be between 1 to 15');
+
+            }
+
+        });
+
+        function arrangeNumbers(dataSet, placeholder) {
+
+            let htmlCode = "";
+
+            for(let i = 0; i < dataSet.length; i++) {
+
+                htmlCode += '<span id="element_' + dataSet[i] + '" class="badge badge-primary" style="margin: 5px;">' + dataSet[i] + '</span>';
+
+            }
+
+            $(placeholder).html(htmlCode);
+
+        }
+
+        function createDataSet() {
+
+            for(let i = 0; i < dataSetSize.val(); i++) {
+
+                dataSet[i] = Math.floor(Math.random() * (100 - 50 + 1) + 50);
+
+            }
+
+        }
+
+        let bubbleSort = (inputArr) => {
+            let len = inputArr.length;
+            for (let i = 0; i < len; i++) {
+                for (let j = 0; j < len; j++) {
+                    if (inputArr[j] > inputArr[j + 1]) {
+                        let tmp = inputArr[j];
+                        inputArr[j] = inputArr[j + 1];
+                        inputArr[j + 1] = tmp;
+                    }
+                }
+            }
+            return inputArr;
+        };
+
+    </script>
+  </body>
+</html>
