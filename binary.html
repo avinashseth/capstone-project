@@ -130,8 +130,6 @@
 
                         let searchIndex = binarySearch(elementToSearch.val());
 
-                        alert(searchIndex);
-
                         if(searchIndex > 0) {
 
                             $('#element_' + elementToSearch.val()).removeClass('badge-primary').addClass('badge-success');
@@ -151,6 +149,8 @@
         });
 
         function arrangeNumbers() {
+
+            dataSet = selectionSort(dataSet);
 
             let htmlCode = "";
 
@@ -181,6 +181,7 @@
 
         function binarySearch(elToFind) {
 
+
             var lowIndex = 0;
             var highIndex = dataSet.length - 1;
 
@@ -197,6 +198,24 @@
             } 
             
             return -1;
+        }
+
+        let selectionSort = (arr) => {
+            let len = arr.length;
+            for (let i = 0; i < len; i++) {
+                let min = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[min] > arr[j]) {
+                        min = j;
+                    }
+                }
+                if (min !== i) {
+                    let tmp = arr[i];
+                    arr[i] = arr[min];
+                    arr[min] = tmp;
+                }
+            }
+            return arr;
         }
 
         function createDataSet() {
